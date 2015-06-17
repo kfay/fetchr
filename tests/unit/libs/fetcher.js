@@ -3,7 +3,7 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 /*jshint expr:true*/
-/*globals beforeEach,describe,it */
+/*globals before,describe,it */
 "use strict";
 
 var chai = require('chai');
@@ -33,8 +33,6 @@ describe('Server Fetcher', function () {
     });
 
     it('should get fetchers by resource and sub resource', function () {
-        Fetcher.fetchers = {};
-        Fetcher.registerFetcher(mockService);
         var getFetcher = Fetcher.getFetcher.bind(fetcher, mockService.name);
         expect(getFetcher).to.not.throw;
         expect(getFetcher()).to.deep.equal(mockService);
@@ -44,10 +42,6 @@ describe('Server Fetcher', function () {
     });
 
     describe('#middleware', function () {
-        beforeEach(function () {
-            Fetcher.registerFetcher(mockService);
-            Fetcher.registerFetcher(mockErrorService);
-        });
         describe('#POST', function() {
             it('should respond to POST api request', function (done) {
                 var operation = 'create',
